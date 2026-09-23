@@ -1,6 +1,6 @@
-새로운 *보관함*입니다.
+[EyeFormer: Predicting Personalized Scanpaths with Transformer-Guided Reinforcement Learning](https://yuejiang-nj.github.io/Publications/2024UIST_EyeFormer/project_page/main.html)
 
-내용을 한번 적어보세요. [[Supplement]], [Importer 플러그인](https://help.obsidian.md/Plugins/Importer)을 사용해봐도 좋습니다!
+내용을 한번 적어보세요. [[Supplement]]을사용해봐도 좋습니다!
 
 준비가 됐다면 이 노트를 삭제하고 맞춤형 보관함을 만들어보세요.
 
