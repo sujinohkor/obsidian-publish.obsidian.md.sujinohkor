@@ -20,4 +20,4 @@ Throughout my career, I had the opportunity to lead **lectures** for both _**sof
 ## Contact
 **Mobile.** &nbsp; +82 10 3173 7024<br>
 **Email.** &nbsp; sujinohkor at gmail.com<br>
-**Web.** &nbsp; https://www.sujinohkor.kr &nbsp; ◀ This is my CV site.<br>
+**Web.** &nbsp; https://www.sujinohkor.kr
