@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "EyeFormer/EyeFormer.md",
+                "file": "EyeFormer.md",
                 "mode": "source",
                 "source": true
               },
@@ -27,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "a7dbc6fe66a86f1f",
+    "id": "3e8d68bc7bd9fdbf",
     "type": "split",
     "children": [
       {
-        "id": "b758254a1484365b",
+        "id": "379042f0b3f5bf3b",
         "type": "tabs",
         "children": [
           {
-            "id": "e44a447d27cc9525",
+            "id": "868f7b946e5a0340",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -50,7 +50,7 @@
             }
           },
           {
-            "id": "651bbb45927b495d",
+            "id": "d8319c9139aec71d",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -67,7 +67,7 @@
             }
           },
           {
-            "id": "68f6fb9c592d5e7d",
+            "id": "d1d6a29d1c275589",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -86,20 +86,20 @@
     "width": 300
   },
   "right": {
-    "id": "7546c445ed1bbb00",
+    "id": "d27999d30cad6754",
     "type": "split",
     "children": [
       {
-        "id": "2459ff6621c4cb06",
+        "id": "b4cee70867349b6e",
         "type": "tabs",
         "children": [
           {
-            "id": "744ba59f5f5732eb",
+            "id": "9d1ceaf182113fba",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "환영합니다!.md",
+                "file": "EyeFormer/EyeFormer.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,12 +113,12 @@
             }
           },
           {
-            "id": "ead8d4c73d31b0d4",
+            "id": "7f5172a533615eec",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "환영합니다!.md",
+                "file": "EyeFormer/EyeFormer.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -127,7 +127,7 @@
             }
           },
           {
-            "id": "f6851be6e6b61e49",
+            "id": "35b171b15279b460",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -142,7 +142,7 @@
             }
           },
           {
-            "id": "94cd4cf8f5099ddb",
+            "id": "909b1eab4161451d",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -156,12 +156,12 @@
             }
           },
           {
-            "id": "faa965bfebc03776",
+            "id": "1ee327aa696d1618",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "환영합니다!.md",
+                "file": "EyeFormer/EyeFormer.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -170,12 +170,12 @@
               "title": "개요"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -186,27 +186,25 @@
       "templates:템플릿 삽입": false,
       "command-palette:명령어 팔레트 열기": false,
       "bases:새 베이스 생성하기": false,
-      "homepage:Open homepage": false,
-      "publish:변경사항 게재": false
+      "publish:변경사항 게재": false,
+      "homepage:Open homepage": false
     }
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
-    "EyeFormer/Supplement.md",
     "Home.md",
-    "EyeFormer/EyeFormer.md",
-    "obsidian/plugins/homepage/main.js",
-    "obsidian/plugins/homepage/manifest.json",
+    "EyeFormer.md",
+    "EyeFormer/Supplement.md",
     "obsidian/plugins/homepage/styles.css",
+    "obsidian/plugins/homepage/manifest.json",
+    "obsidian/plugins/homepage/main.js",
     "obsidian/plugins/homepage",
     "obsidian/workspace.json",
-    "obsidian/graph.json",
     "obsidian/publish.json",
     "obsidian/plugins",
-    "obsidian/community-plugins.json",
+    "obsidian/graph.json",
     "obsidian/core-plugins.json",
-    "무제 2.canvas",
-    "무제 1.canvas",
-    "무제.canvas"
+    "obsidian/community-plugins.json",
+    "환영합니다!.md"
   ]
 }
