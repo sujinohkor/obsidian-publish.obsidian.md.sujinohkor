@@ -102,15 +102,29 @@ r(\hat{\mathbf{p}})
 $$
 
 #### 3.3.1. Dynamic Time Warping with Duration
-Dynamic Time Warping (DTW) is widely used for comparing two sequences that may differ in length [4, 50]. It is useful for scanpaths because it finds an optimal alignment between the two scanpaths (ground truth and predicted ones) and computes the distance without missing any critical features. We implement DTW extended for duration to consider both spatial and temporal characteristics of scanpaths. Specifically, EyeFormer spatially aligns scanpaths by using fixation positions, then computes DTWD values as 3D vectors (𝑥, 𝑦, 𝑡) for fixations’ position and duration. By incorporating DTWD computations over the full scanpath into the reward function, we sought to generate scanpaths closer to the ground truth trajectories and duration. 
+**Dynamic Time Warping (DTW) is widely used for comparing two sequences that may differ in length [4, 50].** <u>It is useful for scanpaths because it finds an optimal alignment between the two scanpaths (ground truth and predicted ones) and computes the distance without missing any critical features.</u> 
 
-#### 3.3.2. Salient Values
-EyeFormer applies rewards for salient values to encourage fixations in salient areas. To avoid repeatedly fixating on the same location in the image, we implement an IOR mechanism to model the relevant tendency of the human visual system. We establish inhibition areas (as regions of the saliency map) for all the previously predicted fixation points. If the new predicted point falls within these areas, it does not elicit any additional reward; the reward corresponds to the salient value on the saliency map in all other cases. Importantly, predicted scanpaths can still return to an already-visited element, just as real-world ones may, since DTWD encourages fixations to revisit the most salient areas and our chosen IOR radius (explained next) is not so large as to preclude revisiting an element. We denote the display’s dimensions as𝑊 ×𝐻. It sets the diameter of that display’s inhibition areas 𝑚display to be consistent with a human’s visual angle, the angle an object subtends at the eye (see Figure 2a). Our choices were informed by the diameter-setting suggested by Klein et al. [32] and further analyzed by Emami et al. [13]. Finally, we compute 𝑚orig, the diameter for the corresponding inhibition areas for the input image with size 𝑤I × ℎI (see Figure 2b):
+We implement **DTW extended for duration** to <u>consider both spatial and temporal characteristics of scanpaths.</u> Specifically, <u>EyeFormer spatially aligns scanpaths by using fixation positions,</u> then <u>computes DTWD values as 3D vectors (𝑥, 𝑦, 𝑡) for fixations’ position and duration.</u> 
+
+<u>By incorporating DTWD computations over the full scanpath into the reward function, we sought to generate scanpaths closer to the ground truth trajectories and duration.</u>
+
+#### <u>3.3.2. Salient Values</u>
+**EyeFormer applies rewards for salient values** to <u>encourage fixations in salient areas.</u> To avoid repeatedly fixating on the same location in the image, we implement an IOR mechanism to model the relevant tendency of the human visual system. 
+
+We establish **inhibition areas (as regions of the saliency map)** for <u>all the previously predicted fixation points.</u> If the new predicted point falls within these areas, it does not elicit any additional reward; the reward corresponds to the salient value on the saliency map in all other cases. 
+
+Importantly, predicted scanpaths can still return to an already-visited element, just as real-world ones may, since DTWD encourages fixations to revisit the most salient areas and our chosen IOR radius (explained next) is not so large as to preclude revisiting an element. 
+
+We denote the display’s dimensions as 𝑊 ×𝐻. It sets the diameter of that display’s inhibition areas 𝑚display to be consistent with a human’s visual angle, the angle an object subtends at the eye (see Figure 2a). Our choices were informed by the diameter-setting suggested by Klein et al. [32] and further analyzed by Emami et al. [13]. 
+
+Finally, we compute 𝑚orig, the diameter for the corresponding inhibition areas for the input image with size 𝑤I × ℎI (see Figure 2b):
 $$
 m_{\mathrm{orig}} = m_{\mathrm{display}} \min\left(\frac{W}{w_I}, \frac{H}{h_I}\right)
 $$
 
-Note that preparing the image for processing necessitates resizing it to𝑤inp×ℎinp, which corresponds to the size that the policy model requires for splitting the input image into patches. Using a square input image simplifies computations of this type [12]; accordingly, we resize the inhibition areas from circles to ellipses, while accounting for potential distortions (see Figure 2c). Any point (𝑥, 𝑦) in the image that satisfies the following condition gets inhibited (resulting in a salient-value reward of 0) and is omitted from the saliency map:
+Note that preparing the image for processing necessitates resizing it to𝑤inp×ℎinp, which corresponds to the size that the policy model requires for splitting the input image into patches. Using a square input image simplifies computations of this type [12]; accordingly, we resize the inhibition areas from circles to ellipses, while accounting for potential distortions (see Figure 2c). 
+
+Any point (𝑥, 𝑦) in the image that satisfies the following condition gets inhibited (resulting in a salient-value reward of 0) and is omitted from the saliency map:
 $$
 \frac{(x-x_i)^2}{m_w^2} + \frac{(y-y_i)^2}{m_h^2} \leq 1,\quad \text{where}\quad
 m_w = \frac{w_{\mathrm{inp}}}{w_I}m_{\mathrm{orig}},\quad
@@ -120,16 +134,32 @@ $$
 where (𝑥𝑖 , 𝑦𝑖) is the coordinates for the 𝑖th predicted fixation point. Hence, salient-value reward 𝑟sal at step 𝑖 is defined as the salient value of predicted fixation 𝑝ˆ𝑖 on the saliency map with IOR applied.
 
 ### 3.4. Policy Network
-A two-stage approach characterizes the policy network for scanpath prediction. The visual representation of any image I is learned through the image encoder (E), after which a scanpath gets generated by means of the fixation decoder (D). For population-level scanpath prediction, the visual embedding E (I) is taken as input to the decoder. For individual-level prediction, feeding the decoder this input along with a viewer embedding, 𝑒𝑢, allows the model to generate personalized scanpaths for separate viewers. 
+**A two-stage approach** characterizes the policy network for scanpath prediction. <u>The visual representation of any image I is learned through the image encoder E,</u> after which <u>a scanpath gets generated by means of the fixation decoder D.</u> 
 
-#### 3.4.1. Vision Encoder
-We use a Vision Transformer (ViT) [6] network as the vision encoder. Specifically, the image is resized to a resolution of 𝑤inp ×ℎinp and split into 𝑛I non-overlapping patches for the vision encoder. Splitting functions mainly to speed up the model’s inference, capture local information, and obtain global information from relationships between patches. Next, a linear projection, a convolution layer, is applied to convert these patches into single-dimension embeddings 𝑒 𝑘 I ∈ R 𝑑I thus:
-$$\tilde{e}_I = [e_I^{\mathrm{CLS}}, e_I^1, \ldots, e_I^{n_I}] + e_{\mathrm{pos}}$$
+**For population-level scanpath prediction,** <u>the visual embedding E (I) is taken as input to the decoder.</u> **For individual-level prediction,** <u>feeding the decoder this input along with a viewer embedding, 𝑒𝑢, allows the model to generate personalized scanpaths for separate viewers.</u>
 
-where 𝑒 𝐶𝐿𝑆 I is a learnable vector for the image context, [𝑒 𝐶𝐿𝑆 I , 𝑒1 I , . . . , 𝑒 𝑛I I ] is a matrix from concatenating the vectors 𝑒 𝐶𝐿𝑆 I , 𝑒1 I , . . . , 𝑒 𝑛I I , and 𝑒𝑝𝑜𝑠 ∈ R 𝑑I × (𝑛I+1) is the positional matrix reflecting the position context of the image patches. Finally, we apply a vision encoder E (·) based on a 12-layer version of the ViT model [12]. By employing per-patch convolution and using a Transformer to combine patch embeddings, the ViT model expresses the relationship for each patch and lets us derive the final image embedding, denoted as E (𝑒 I˜ ). We consider an alternative vision encoder, using a residual neural network (ResNet), also; the supplementary materials include comparison between it and the mechanism ultimately chosen.
+#### <u>3.4.1. Vision Encoder</u>
+We use a Vision Transformer (ViT) [6] network as the vision encoder. Specifically, the image is resized to a resolution of 𝑤inp ×ℎinp and split into 𝑛I non-overlapping patches for the vision encoder. 
 
-#### 3.4.2 Fixation Decoder
-To generate fixation points, 𝑝ˆ𝑖 , we use a multi-layer Transformer decoder, D. It takes the image embedding E (𝑒 I˜ ) alongside the previously generated points denoted by 𝑝ˆ1:𝑖−1 as input to generate D (E (𝑒 I˜ ), 𝑝ˆ1:𝑖−1). This allows previous fixation points to influence points further along the scanpath. We set the first fixation to be at the center of the screen since the conditions behind most eye-tracking datasets involve asking participants to look at the center of the display before images get presented [24, 70]. For the given state (the previously predicted fixation points and the input image), the action (the next prediction for a fixation point) is
+Splitting functions mainly to speed up the model’s inference, capture local information, and obtain global information from relationships between patches. Next, a linear projection, a convolution layer, is applied to convert these patches into single-dimension embeddings 𝑒 𝑘 I ∈ R 𝑑I thus:
+$$
+\tilde{e}_I = [e_I^{\mathrm{CLS}}, e_I^1, \ldots, e_I^{n_I}] + e_{\mathrm{pos}}
+$$
+
+where 𝑒 𝐶𝐿𝑆 I is a learnable vector for the image context, [𝑒 𝐶𝐿𝑆 I , 𝑒1 I , . . . , 𝑒 𝑛I I ] is a matrix from concatenating the vectors 𝑒 𝐶𝐿𝑆 I , 𝑒1 I , . . . , 𝑒 𝑛I I , and 𝑒𝑝𝑜𝑠 ∈ R 𝑑I × (𝑛I+1) is the positional matrix reflecting the position context of the image patches. 
+
+Finally, we apply a vision encoder E (·) based on a 12-layer version of the ViT model [12]. By employing per-patch convolution and using a Transformer to combine patch embeddings, the ViT model expresses the relationship for each patch and lets us derive the final image embedding, denoted as E (𝑒 I˜ ). 
+
+We consider an alternative vision encoder, using a residual neural network (ResNet), also; the supplementary materials include comparison between it and the mechanism ultimately chosen.
+
+#### <u>3.4.2 Fixation Decoder</u>
+To generate fixation points, 𝑝ˆ𝑖 , we use a multi-layer Transformer decoder, D. It takes the image embedding E (𝑒 I˜ ) alongside the previously generated points denoted by 𝑝ˆ1:𝑖−1 as input to generate D (E (𝑒 I˜ ), 𝑝ˆ1:𝑖−1). 
+
+This allows previous fixation points to influence points further along the scanpath. 
+
+We set the first fixation to be at the center of the screen since the conditions behind most eye-tracking datasets involve asking participants to look at the center of the display before images get presented [24, 70]. 
+
+For the given state (the previously predicted fixation points and the input image), the action (the next prediction for a fixation point) is
 $$
 \pi_{\theta}(\hat{p}_{1:T} \mid I)
 =
@@ -138,13 +168,25 @@ $$
 \pi_{\theta}(\hat{p}_i \mid \hat{p}_{1:i-1}, I)
 $$
 
-The policy 𝜋𝜃 is represented as a Gaussian distribution N (𝜇𝑖 , 𝜎𝑖). Alternatively, it could be represented as a mixed Gaussian distribution $\sum_{k=1}^{K} \lambda_{ik}\mathcal{N}(\mu_{ik}, \Sigma_{ik})$ with a total of 𝐾 Gaussian components, where 𝜆𝑖𝑘 denotes the weight of the 𝑘th Gaussian component, and Σ𝑖𝑘 denotes the covariance matrix specific to the component at step 𝑖. These variables for determining the distribution are sequentially generated by the decoder. We present more implementation details and a comparison between using a Gaussian and a mixed Gaussian distribution in supplementary materials.
+The policy 𝜋𝜃 is represented as a Gaussian distribution N (𝜇𝑖 , 𝜎𝑖). Alternatively, it could be represented as a mixed Gaussian distribution $\sum_{k=1}^{K} \lambda_{ik}\mathcal{N}(\mu_{ik}, \Sigma_{ik})$ with a total of 𝐾 Gaussian components, where 𝜆𝑖𝑘 denotes the weight of the 𝑘th Gaussian component, and Σ𝑖𝑘 denotes the covariance matrix specific to the component at step 𝑖. These variables for determining the distribution are sequentially generated by the decoder. 
 
-### 3.5. Predicting Personalized Scanpaths
-To distinguish between individual viewers, we select a two-layer Transformer architecture as the viewer encoder E𝑢. This facilitates prediction of individual-level scanpaths considerably. The training process trains the model from the training users in the dataset. The viewer encoder is taught to allow each viewer’s distinct viewing behaviors to be encoded in a separate embedding space. In the test process, when given a new viewer, the model updates the viewer encoder with a few scanpaths from that viewer by backpropagating from the scanpath samples. Once the model has updated the viewer encoder, it can predict scanpaths specific to this unique viewer, thereby customizing its predictions for this individual’s viewing behaviors (note that this encoder is not applied for population-level predictions). Specifically, the image representation, E (𝑒 I˜ ), serves as the input query, while viewer embedding 𝑒𝑢 serves as the key and value in the cross-attention mechanism within the viewer encoder. The viewer embedding is a learnable matrix. For generation of fixations, the output of this encoder, E𝑢 (𝑒 I˜ , 𝑒𝑢), is directed to the fixation decoder.
+We present more implementation details and a comparison between using a Gaussian and a mixed Gaussian distribution in supplementary materials.
 
-### 3.6. Policy Gradient
-To compute the gradient of the objective function ∇𝜃 L (𝜃), our method employs the REINFORCE algorithm [47, 67], which offers a Monte Carlo variant of a policy-optimization technique commonly used in RL settings [56]. Under this algorithm, the agent accumulates samples from episodes by executing its current policy and utilizes those samples to update the policy’s parameters iteratively. The REINFORCE algorithm aims to maximize the cumulative expected reward across sequential actions by approximating the gradient of the expected reward for the current policy parameters. By adjusting these parameters iteratively in accordance with the gradient estimate, the algorithm attempts to enhance the policy’s performance over time. This algorithm is rooted in the insight that one can obtain the expected gradient of a non-differentiable reward function as follows:
+### <u>3.5. Predicting Personalized Scanpaths</u>
+To distinguish between individual viewers, we select a two-layer Transformer architecture as the viewer encoder E𝑢. This facilitates prediction of individual-level scanpaths considerably. 
+
+The training process trains the model from the training users in the dataset. The viewer encoder is taught to allow each viewer’s distinct viewing behaviors to be encoded in a separate embedding space. 
+
+In the test process, when given a new viewer, the model updates the viewer encoder with a few scanpaths from that viewer by backpropagating from the scanpath samples. Once the model has updated the viewer encoder, it can predict scanpaths specific to this unique viewer, thereby customizing its predictions for this individual’s viewing behaviors (note that this encoder is not applied for population-level predictions). 
+
+Specifically, the image representation, E (𝑒 I˜ ), serves as the input query, while viewer embedding 𝑒𝑢 serves as the key and value in the cross-attention mechanism within the viewer encoder. The viewer embedding is a learnable matrix. For generation of fixations, the output of this encoder, E𝑢 (𝑒 I˜ , 𝑒𝑢), is directed to the fixation decoder.
+
+### <u>3.6. Policy Gradient</u>
+To compute the gradient of the objective function ∇𝜃 L (𝜃), our method employs the REINFORCE algorithm [47, 67], which offers a Monte Carlo variant of a policy-optimization technique commonly used in RL settings [56]. 
+
+Under this algorithm, the agent accumulates samples from episodes by executing its current policy and utilizes those samples to update the policy’s parameters iteratively. The REINFORCE algorithm aims to maximize the cumulative expected reward across sequential actions by approximating the gradient of the expected reward for the current policy parameters. By adjusting these parameters iteratively in accordance with the gradient estimate, the algorithm attempts to enhance the policy’s performance over time. 
+
+This algorithm is rooted in the insight that one can obtain the expected gradient of a non-differentiable reward function as follows:
 $$
 \nabla_{\theta}\mathcal{L}(\theta)
 =
@@ -161,7 +203,11 @@ $$
 -r(\hat{p})\nabla_{\theta}\log\pi_{\theta}(\hat{p}\mid I)
 $$
 
-REINFORCE with a baseline. Our technique uses a baseline 𝑏 to assess the environment’s expected reward without any actions, thus generalizing the policy gradient obtained from REINFORCE. Applying this algorithm with a baseline allows us to estimate the advantage yielded by an action – i.e., the difference between the actual reward obtained and that expected from the baseline environment. By subtracting the baseline value, we reduce the variance of the gradient estimation, thereby arriving at a stabler optimization process. The gradient of the loss with respect to the 𝜃 policy parameters is then obtained as
+REINFORCE with a baseline. Our technique uses a baseline 𝑏 to assess the environment’s expected reward without any actions, thus generalizing the policy gradient obtained from REINFORCE. 
+
+Applying this algorithm with a baseline allows us to estimate the advantage yielded by an action – i.e., the difference between the actual reward obtained and that expected from the baseline environment. By subtracting the baseline value, we reduce the variance of the gradient estimation, thereby arriving at a stabler optimization process. 
+
+The gradient of the loss with respect to the 𝜃 policy parameters is then obtained as
 $$
 \nabla_{\theta}\mathcal{L}(\theta)
 =
@@ -178,7 +224,11 @@ $$
 -\bigl(r(\hat{p})-b\bigr)\nabla_{\theta}\log\pi_{\theta}(\hat{p}\mid I)
 $$
 
-In the discrete space, Rennie et al.’s conceptualization [47] serves as a foundational framework, wherein𝑏 is estimated by means of the reward obtained from the policy’s greedy search. For operating in a continuous space, however, our approach diverges from theirs: at each step, the operation of our policy necessitates computation of 𝑏, defined as the reward associated with the mean of multiple samples drawn from the policy – in essence, the mean of the distribution generated by the policy. Consequently, the expected gradient is calculated as
+In the discrete space, Rennie et al.’s conceptualization [47] serves as a foundational framework, wherein 𝑏 is estimated by means of the reward obtained from the policy’s greedy search. 
+
+For operating in a continuous space, however, our approach diverges from theirs: at each step, the operation of our policy necessitates computation of 𝑏, defined as the reward associated with the mean of multiple samples drawn from the policy – in essence, the mean of the distribution generated by the policy. 
+
+Consequently, the expected gradient is calculated as
 $$
 \nabla_{\theta}\mathcal{L}(\theta)
 \approx
