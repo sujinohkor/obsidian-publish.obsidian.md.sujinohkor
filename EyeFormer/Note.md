@@ -1,3 +1,4 @@
+# Sep 10, 2026
 제가 생각해보는 한 방향은 시각장애인을 위한 웹페이지 탐색 방법의 재구성에 관한 겁니다.
 
 이 논문 **[Eyeformer](https://yuejiang-nj.github.io/Publications/2024UIST_EyeFormer/project_page/main.html)** 에서 <u>웹페이지의 디자인 및 구성에 기반해 사용자가 어떤 순서로 내용을 볼 것인지를 예측</u>하는 모델을 개발했는데요, 이를 역으로 이용하면 어떠한 웹페이지가 있을 때 <u>그 예측 결과에 기반해 디자이너의 웹페이지 설계 의도를 어느 정도 추정할 수 있지 않을까</u> 합니다.
@@ -8,4 +9,6 @@
 
 혹시 관심있으시면 이 쪽 방향으로 프로젝트를 시작해보면 어떨까 합니다. 아마 이 방향은 하드웨어도 필요하지 않아서 원격에서도 어느 정도 협업이 가능하지 않을까 싶기도 해요.
 
----
+# [Colab: EyeFormer-0915](https://colab.research.google.com/drive/1A7al__HMSLrPm3jDUk5l_MoDsdCTDvWq?usp=drive_link)
+![[input.png]]
+![[output.png]]
