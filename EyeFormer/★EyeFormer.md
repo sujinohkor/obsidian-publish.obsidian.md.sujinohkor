@@ -4,7 +4,15 @@
 
 # Paper Excerpts
 ## Abstract
-Our model offers the unique capability of <u>producing personalized predictions</u> when given a few user scanpath samples. <u>It can predict full scanpath information, including fixation positions and durations, across individuals and various stimulus types.</u>
+From a visual-perception perspective, modern graphical user interfaces (GUIs) comprise a complex graphics-rich two-dimensional visuospatial arrangement of text, images, and interactive objects such as buttons and menus. 
+
+While existing models can accurately predict regions and objects that are likely to attract attention “on average”, no scanpath model has been capable of predicting scanpaths for an individual. 
+
+To close this gap, we introduce **EyeFormer,** which <u>utilizes a Transformer architecture as a policy network to guide a deep reinforcement learning algorithm that predicts gaze locations.</u> 
+
+Our model offers the unique capability of <u>producing personalized predictions</u> when given a few user scanpath samples. <u>It can predict full scanpath information, including fixation positions and durations, across individuals and various stimulus types.</u> 
+
+Additionally, we demonstrate applications in GUI layout optimization driven by our model.
 
 ## 1. Introduction
 Prior work has focused primarily on **saliency maps,** which represent <u>eye-movement data via density maps</u> for the images [20]. <u>However, as static representations, these overlook temporal information.</u> In contrast, **scanpaths** <u>contain a wealth of information on fixations, retaining details of the order in which objects and regions are attended to, accompanied by the respective duration [7, 24, 41].</u> Scanpaths are, therefore, first-order models of human vision from which second-order measurements such as saliency maps can be derived, while the converse is not true.
