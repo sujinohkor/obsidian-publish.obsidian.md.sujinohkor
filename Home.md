@@ -1,1 +1,1 @@
-* [[EyeFormer]] Yue Jiang, **UIST 2024**
+* [[★EyeFormer]] Yue Jiang, **UIST 2024**
