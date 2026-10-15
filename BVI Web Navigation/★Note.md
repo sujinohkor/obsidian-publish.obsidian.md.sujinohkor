@@ -26,7 +26,7 @@
 - 의의: AI 자동화와 인간의 의사결정권을 결합하는 Human-AI Interaction 연구
 
 # [[Navigal]]
-	 Navigal: Generating Adaptive Interfaces for Personalized Screen Reader Navigation
+	Navigal: Generating Adaptive Interfaces for Personalized Screen Reader Navigation
 	(ACM '26) Anonymous
 - 핵심: 사용자가 원하는 기능만 모아 개인화된 웹 인터페이스를 자동 생성하는 기술
 - 문제: 시각장애인은 웹사이트마다 구조가 달라 원하는 버튼이나 기능을 찾기 위해 많은 탐색을 해야 함
@@ -35,7 +35,7 @@
 - 의의: AI가 모든 작업을 대신 수행하는 것이 아니라, 사용자가 직접 조작할 수 있는 맞춤형 인터페이스를 제공한다는 점에서 차별화
 
 # [[Slide Gestalt]]
-	 Slide Gestalt: Automatic Structure Extraction in Slide Decks for Non-Visual Access
+	Slide Gestalt: Automatic Structure Extraction in Slide Decks for Non-Visual Access
 	(CHI '23) Yi-Hao Peng
 - 핵심: 파워포인트 슬라이드의 구조를 자동 분석하여 시각장애인이 쉽게 탐색하도록 하는 기술
 - 문제: 스크린리더는 슬라이드에 나타난 시각적 계층구조를 제대로 전달하지 못함
@@ -44,8 +44,8 @@
 - 의의: 문서를 처음부터 끝까지 순서대로 읽는 대신, 목차와 계층구조를 이용해 원하는 부분으로 바로 이동할 수 있게 함
 
 # [[The Dilemma]]
-	- *The Dilemma of Building Do-It-Yourself (DIY) Solutions For Workplace Accessibility
-	- *(CHI '25) Yoonha Cha
+	The Dilemma of Building Do-It-Yourself (DIY) Solutions For Workplace Accessibility
+	(CHI '25) Yoonha Cha
 - 핵심: 시각장애인 개발자들이 직장에서 접근성 문제를 직접 해결하는 과정에 대한 연구
 - 문제: 기존 개발도구의 접근성이 부족하여 시각장애인 개발자가 업무 수행에 어려움을 겪음
 - 방법: 시각장애인 및 저시력 소프트웨어 전문가 30명을 인터뷰하여 직접 제작한 보조도구와 제작 동기를 조사
