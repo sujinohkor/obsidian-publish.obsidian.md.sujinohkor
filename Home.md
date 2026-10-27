@@ -7,5 +7,5 @@ This site contains my notes on the papers I’ve read. Each paper is organized i
 If you have any comments or suggestions after reading, I’d appreciate hearing from you at [sujinohkor at gmail.com](mailto:sujinohkor@gmail.com).
 
 # PROJECTS
-- [BVI Web Navigation](<BVI Web Navigation/★Paper Summaries.md>)
-	- [BVI Web Navigation: Paper Notes](<BVI Web Navigation/★Paper Notes.md>)
+- [BVI Web Navigation](<★논문 요약정리.md>)
+	- [BVI Web Navigation: Paper Notes](<☆Intent에 따른 비교정리.md>)
