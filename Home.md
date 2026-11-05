@@ -14,6 +14,7 @@ If you have any comments or suggestions after reading, I’d appreciate hearing 
 
 # PROJECTS
 - **BVI Web Navigation**
-	- [[BVI Web Navigation/★Model Paper 선정]]
+	- [[BVI Web Navigation/★Model Paper 선정 (1)]]
+	- [[BVI Web Navigation/★Model Paper 선정 (2)]]
 	- [[BVI Web Navigation/☆논문 요약정리]]
 	- [[BVI Web Navigation/☆Intent에 따른 비교정리]]
