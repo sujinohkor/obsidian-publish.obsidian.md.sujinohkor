@@ -13,4 +13,7 @@ or:
 If you have any comments or suggestions after reading, I’d appreciate hearing from you at [sujinohkor at gmail.com](mailto:sujinohkor@gmail.com).
 
 # PROJECTS
-- BVI Web Navigation
+- **BVI Web Navigation**
+	- [[BVI Web Navigation/★Model Paper 선정]]
+	- [[BVI Web Navigation/☆논문 요약정리]]
+	- [[BVI Web Navigation/☆Intent에 따른 비교정리]]

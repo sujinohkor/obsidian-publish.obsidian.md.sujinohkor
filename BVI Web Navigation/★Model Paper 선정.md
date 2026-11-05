@@ -33,7 +33,7 @@
 
 수진님 연구의 주된 대상은 첫 번째와 부분적으로 두 번째입니다. 세 번째만 해결하는 논문은 직접적인 모델로 보기 어렵습니다.
 
-# 2. 모델 페이퍼 ① — Slide Gestalt, CHI’23
+# 2. 모델 페이퍼 ① — [[Slide Gestalt (2)|Slide Gestalt]], CHI’23
 
 _Slide Gestalt: Automatic Structure Extraction in Slide Decks for Non-Visual Access_
 
@@ -105,7 +105,7 @@ _Slide Gestalt: Automatic Structure Extraction in Slide Decks for Non-Visual Acc
 
 **판정:** 연구의 문제 설정, 구조 추출, 탐색 인터페이스, 평가 설계를 본받을 **주 모델 페이퍼**입니다. 알고리즘 전체를 웹페이지에 그대로 옮기는 용도는 아닙니다.
 
-# 3. 모델 페이퍼 ② — Learning Visual Importance, UIST’17
+# 3. 모델 페이퍼 ② — [[Learning|Learning Visual Importance]], UIST’17
 
 _Learning Visual Importance for Graphic Designs and Data Visualizations_
 
@@ -176,7 +176,7 @@ GDI는 관찰자의 중요 영역 주석이고, BubbleView는 관찰 행동의 �
 
 # 5. 반드시 참고할 기술·상호작용 논문
 
-## ① From Cluttered to Clear — ASSETS’25
+## ① [[From Cluttered to Clear]] — ASSETS’25
 
 _From Cluttered to Clear: Improving the Web Accessibility Design for Screen Reader Users in E-commerce With Generative AI_
 
