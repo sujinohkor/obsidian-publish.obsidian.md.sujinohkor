@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NVDA 그룹 순서 검증 — A B C</title>
+  <style>
+    :root {font-family: system-ui, 'Malgun Gothic', sans-serif; color: #18212b; background: #f4f6fa;}
+    body {max-width: 980px; margin: 28px auto; padding: 0 18px;}
+    header {margin-bottom: 20px;}
+    h1 {font-size: 1.45rem; margin: 0 0 6px;}
+    .guide {font-size: .95rem; margin: 6px 0; color: #445368;}
+    main {display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px;}
+    section {background: #fff; border: 2px solid #d0d9e6; border-radius: 10px; padding: 18px; min-width: 0;}
+    section h2 {margin: 0 0 16px; font-size: 1.25rem;}
+    section p {border-top: 1px solid #ebeff5; margin: 0; padding: 14px 0;}
+    @media (max-width: 640px) {main {grid-template-columns: 1fr;}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NVDA 그룹 읽기 순서 검증</h1>
+    <p class="guide">화면 순서: A → B → C. 확장 프로그램 ON 후에도 화면은 동일해야 합니다.</p>
+    <p class="guide">NVDA 읽기 예상: OFF = A → B → C / ON = C → B → A. 그룹 내부는 언제나 첫째 → 둘째 → 셋째.</p>
+  </header>
+  <main aria-label="그룹 읽기 실험 본문">
+    <section>
+      <h2>그룹 에이: 상품 소개</h2>
+      <p>에이 항목 첫째: 제품 소개</p>
+      <p>에이 항목 둘째: 주요 특징</p>
+      <p>에이 항목 셋째: 세부 설명</p>
+    </section>
+    <section>
+      <h2>그룹 비: 가격과 옵션</h2>
+      <p>비 항목 첫째: 판매 가격</p>
+      <p>비 항목 둘째: 선택 옵션</p>
+      <p>비 항목 셋째: 구매 조건</p>
+    </section>
+    <section>
+      <h2>그룹 씨: 사용자 후기</h2>
+      <p>씨 항목 첫째: 사용자 평가</p>
+      <p>씨 항목 둘째: 좋은 평가</p>
+      <p>씨 항목 셋째: 개선 요청</p>
+    </section>
+  </main>
+</body>
+</html>
